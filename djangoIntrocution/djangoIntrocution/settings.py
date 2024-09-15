@@ -30,6 +30,10 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# MY_APPS = [
+#     'djangoIntrocution.todo_app',
+# ]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 ]
 
 MIDDLEWARE = [
@@ -80,7 +85,7 @@ DATABASES = {
         "NAME": "todo_db",
         "USER": "postgres-user",
         "PASSWORD": "password",
-        "HOST": "127.0.0.1",
+        "HOST": "localhost",
         "PORT": "5432",
     }
 }
