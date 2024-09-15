@@ -30,9 +30,9 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-# MY_APPS = [
-#     'djangoIntrocution.todo_app',
-# ]
+MY_APPS = [
+    'djangoIntrocution.todo_app',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-]
+] + MY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
