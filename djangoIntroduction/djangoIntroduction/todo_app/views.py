@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from django.shortcuts import render
-from djangoIntrocution.todo_app.models import Task
+from djangoIntroduction.todo_app.models import Task
 
 
 def index(request):
