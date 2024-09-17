@@ -1,6 +1,8 @@
 from django.shortcuts import render
 
 from django.shortcuts import render
+
+from django.shortcuts import render
 from djangoIntroduction.todo_app.models import Task
 
 
@@ -15,3 +17,4 @@ def index(request):
     }
 
     return render(request, 'tasks/index.html', context)  # MIME TYPE text/html
+
