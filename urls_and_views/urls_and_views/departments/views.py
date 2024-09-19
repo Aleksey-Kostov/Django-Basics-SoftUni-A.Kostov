@@ -50,4 +50,3 @@ def show_archive(request, archive_year):
 
 def redirect_to_softuni(request):
     return redirect('https://softuni.bg')
-
