@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'templatesBasics.forumApp'
 ]
 
 MIDDLEWARE = [
@@ -77,7 +78,7 @@ WSGI_APPLICATION = 'templatesBasics.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "templatesBasics",
+        "NAME": "templatesbasics",
         "USER": "postgres-user",
         "PASSWORD": "password",
         "HOST": "127.0.0.1",
