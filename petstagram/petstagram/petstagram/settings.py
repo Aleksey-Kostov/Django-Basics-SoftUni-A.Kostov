@@ -30,10 +30,10 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-MY_APP = ['photos',
-          'accounts',
-          'common',
-          'pets',
+MY_APP = ['petstagram.photos',
+          'petstagram.accounts',
+          'petstagram.common',
+          'petstagram.pets',
           ]
 
 INSTALLED_APPS = [
