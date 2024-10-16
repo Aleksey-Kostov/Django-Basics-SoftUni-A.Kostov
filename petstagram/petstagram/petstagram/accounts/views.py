@@ -9,7 +9,7 @@ def register(request):
     return render(request, 'accounts/register-page.html')
 
 
-def delete_page(request):
+def profile_delete(request):
     return render(request, 'accounts/profile-delete-page.html')
 
 

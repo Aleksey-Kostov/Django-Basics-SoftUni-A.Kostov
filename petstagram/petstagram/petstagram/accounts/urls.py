@@ -7,6 +7,6 @@ urlpatterns = [path('register/', views.register, name='register'),
                path('profile/<int:pk>/', include([
                    path('', views.profile_details, name='profile_details'),
                    path('edit/', views.profile_edit, name='profile_edit'),
-                   path('delete/', views.delete_page, name='profile_delete'),
+                   path('delete/', views.profile_delete, name='profile_delete'),
                ]))
                ]
