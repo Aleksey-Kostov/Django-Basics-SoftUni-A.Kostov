@@ -16,12 +16,14 @@
                        Diyan Kalaydzhiev
                    </a>
                    <br>
-                   <span>Bansko, Bulgaria</span>
+                   {% if photo.location %}
+                       <span>{{ photo.location }}</span>
+                   {% endif %}
                </h3>
            </div>
        </div>
-       <div class="imgBx" id="place the id of the photo here">
-           <img src="/static/images/axolotl.jpeg" alt="post" class="cover">
+       <div class="imgBx" id="{{ photo.id }}">
+           <img src="{{ photo.photo.url }}" alt="post" class="cover">
        </div>
 
        <div class="bottom">
@@ -43,7 +45,7 @@
                <p class="likes">203 likes</p>
            </a>
 
-           <a href="pet profile">
+           <a href="#">
                <p class="message">
                    <b>Sasho</b>
                </p>
@@ -54,11 +56,11 @@
                </p>
            </a>
 
-           <a href="post details">
+           <a href="{% url 'photo-details' photo.pk%}">
                <h4 class="details">See details</h4>
            </a>
 
-           <h5 class="postTime">19/09/2022</h5>
+           <h5 class="postTime">{{ photo.date_of_publication }}</h5>
 
            <div class="addComments">
 

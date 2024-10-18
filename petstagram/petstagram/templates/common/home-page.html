@@ -13,7 +13,11 @@
                 </button>
             </form>
             
-            {% include 'common/pet-posts.html' %}
+            
+            {% for photo in all_photos %}
+                {% include 'common/pet-posts.html' %}
+            {% endfor %}
+            
         </div>
     </div>
 {% endblock %}
