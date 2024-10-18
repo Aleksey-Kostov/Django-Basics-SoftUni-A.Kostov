@@ -44,17 +44,16 @@
            <a href="#">
                <p class="likes">203 likes</p>
            </a>
+       
+           {% for pet in photo.tagged_pets.all %}
+                <!-- Link to First Tagged Pet Details Page-->
+                <a href="{% url 'pet-details' "username" pet.slug %}">
+                    <p class="message">
+                        <b>{{ pet.name }}</b>
+                    </p>
+                </a>
+           {% endfor %}
 
-           <a href="#">
-               <p class="message">
-                   <b>Sasho</b>
-               </p>
-           </a>
-           <a href="pet profile">
-               <p class="message">
-                   <b>Some other fish</b>
-               </p>
-           </a>
 
            <a href="{% url 'photo-details' photo.pk%}">
                <h4 class="details">See details</h4>
