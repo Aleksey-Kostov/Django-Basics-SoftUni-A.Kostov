@@ -54,6 +54,14 @@ class PetDeletePage(DeleteView):
     def get_initial(self) -> dict:
         return self.get_object().__dict__
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({
+            'data': self.get_initial(),
+        })
+
+        return kwargs
+
 
 class PetDetailsPage(DetailView):
     model = Pet
