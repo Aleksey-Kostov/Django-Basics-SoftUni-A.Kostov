@@ -30,6 +30,12 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+MY_APPS = [
+    'regular_exam_2024_feb.common',
+    'regular_exam_2024_feb.profile_car',
+    'regular_exam_2024_feb.car'
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+] + MY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
