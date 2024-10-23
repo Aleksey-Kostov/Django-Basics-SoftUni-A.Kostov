@@ -4,8 +4,8 @@
 {% block content %}
     <!-- create profile form -->
     <section id="register-page" class="content auth">
-        <form method="post" {% url 'create-page' %}>
-             {% csrf_token %}
+        <form method="post" {% url 'create-profile' %}>
+            {% csrf_token %}
             {{ form.as_p }}
             <input class="btn submit" type="submit" value="Create Profile"/>
         </form>

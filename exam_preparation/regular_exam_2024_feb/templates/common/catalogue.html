@@ -3,36 +3,30 @@
 
 {% block content %}
 
-    {% if not cars %}
-        <p class="no-articles">No cars yet</p>
+    <h1>Car Catalogue</h1>
 
-        <!-- Display a card with information about each car (if any)-->
+    {% if cars.count == 0 %}
+        <p class="no-articles">No cars yet.</p>
     {% else %}
-        <h1>Total cars: {{ cars.count }}</h1>
+        <h2>Total cars: {{ cars.count }}</h2>
 
+        <!-- Loop through the list of cars -->
         {% for car in cars %}
-
-            <!-- first car-->
             <div class="car-card">
                 <div class="image-wrap">
-                    <!-- car image -->
-                    <img
-                            src="{{ car.image_url }}"
-                            alt="Rally"
-                    />
+                    <!-- Car image -->
+                    <img src="{{ car.image_url }}" alt="{{ car.type }} image" />
                 </div>
-                <!-- car type -->
+                <!-- Car type -->
                 <h3>{{ car.type }}</h3>
-                <!-- car model -->
-                <h1>{{ car.model }}</h1>
+                <!-- Car model -->
+                <h4>{{ car.model }}</h4>  <!-- Changed <h1> to <h4> for better semantics -->
                 <div class="details-buttons">
-                    <!-- car details button -->
-                    <a href="#" class="details-btn">Details</a>
+                    <!-- Car details button -->
+                    <a href="{% url 'car-details' car.pk %}" class="details-btn">Details</a>
                 </div>
             </div>
         {% endfor %}
-
-
     {% endif %}
 
 {% endblock %}

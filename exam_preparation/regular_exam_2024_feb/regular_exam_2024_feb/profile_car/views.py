@@ -11,7 +11,12 @@ from regular_exam_2024_feb.utils import get_user_obj
 class AlbumCreateView(CreateView):
     model = Profile
     form_class = ProfileCreationForm
-    success_url = reverse_lazy('create-page')
+    success_url = reverse_lazy('create-car')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile'] = get_user_obj()  # Pass the user's profile to the context
+        return context
 
     def get_template_names(self):
         profile = get_user_obj()  # None or QuerySet

@@ -27,14 +27,15 @@ class Car(models.Model):
     image_url = models.URLField(unique=True,
                                 null=False,
                                 blank=False,
-                                help_text="https://...",
+                                # help_text="https://...",
                                 error_messages={
                                     'unique': "This image URL is already in use! Provide a new one."}
                                 )
 
-    price = models.FloatField(validators=[MinValueValidator(1.0)])
+    price = models.FloatField(validators=[MinValueValidator(1.0)],
+                              null=False,
+                              blank=False, )
 
     owner = models.ForeignKey(to=Profile,
                               on_delete=models.CASCADE,
                               related_name='cars')
-
