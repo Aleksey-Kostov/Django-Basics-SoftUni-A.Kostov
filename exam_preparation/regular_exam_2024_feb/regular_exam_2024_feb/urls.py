@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('regular_exam_2024_feb.common.urls')),
     path('profile/', include('regular_exam_2024_feb.profile_car.urls')),
-    # path('car/', include('regular_exam_2024_feb.car.urls')),
+    path('car/', include('regular_exam_2024_feb.car.urls')),
 ]

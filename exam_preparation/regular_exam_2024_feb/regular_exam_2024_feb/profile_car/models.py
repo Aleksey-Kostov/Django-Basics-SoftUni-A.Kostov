@@ -14,7 +14,7 @@ class Profile(models.Model):
 
     email = models.EmailField(null=False, blank=False,)
 
-    age = models.IntegerField(validators=[MinValueValidator(21, 'Age requirement: 21 years and above."')],
+    age = models.IntegerField(validators=[MinValueValidator(21, 'Age requirement: 21 years and above.')],
                               null=False, blank=False
                               )
 
