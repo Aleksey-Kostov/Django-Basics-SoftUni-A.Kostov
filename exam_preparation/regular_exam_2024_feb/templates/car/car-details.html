@@ -20,7 +20,7 @@
                 <!-- car year -->
                 <p><span class="description">Year: {{ cars.year }}</span></p>
                 <!-- car price -->
-                <p><span class="description">Price: {{ cars.price }}</span></p>
+                <p><span class="description">Price: {{ cars.price|floatformat:3 }}</span></p>
             </div>
 
             <!-- Edit/Delete buttons -->
@@ -30,6 +30,4 @@
             </div>
         </div>
     </section>
-
-    <!-- footer -->
 {% endblock %}

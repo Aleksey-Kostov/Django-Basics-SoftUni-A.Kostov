@@ -1,5 +1,7 @@
 from django import forms
+
 from .models import Car
+from ..profile_car.models import Profile
 
 
 class CarsCreateForm(forms.ModelForm):
@@ -24,3 +26,13 @@ class CarsCreateForm(forms.ModelForm):
         if price is None or price < 1.0:
             raise forms.ValidationError("Price must be at least 1.0.")
         return price
+
+
+class ProfileEditForm(forms.ModelForm):
+    password = forms.CharField(
+        widget=forms.TextInput(attrs={'readonly': 'readonly'})
+    )
+
+    class Meta:
+        model = Profile
+        fields = ['username', 'email', 'age', 'password', 'first_name', 'last_name', 'profile_picture', ]

@@ -60,6 +60,11 @@ class CarDetailView(DetailView):
     template_name = 'car/car-details.html'
     context_object_name = 'cars'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile'] = get_user_obj()  # Add profile to context
+        return context
+
 
 class EditCarView(UpdateView):
     model = Car
