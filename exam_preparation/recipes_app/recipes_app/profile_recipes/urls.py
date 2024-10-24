@@ -1,12 +1,10 @@
 from django.urls import path, include
 
-from recipes_app.recipe import views
+from recipes_app.profile_recipes import views
 
-# urlpatterns = [
-#     path('add/', views.AlbumCreateView.as_view(), name='add-album'),
-#     path('<int:id>/', include([
-#         path('edit/', views.AlbumEditView.as_view(), name='album-edit'),
-#         path('details/', views.AlbumDetailsView.as_view(), name='album-details'),
-#         path('delete/', views.AlbumDeleteView.as_view(), name='album-delete'),
-#     ]))
-# ]
+urlpatterns = [
+    path('add/', views.create_profile, name='create-profile'),
+    path('edit/', views.edit_profile, name='edit-profile'),
+    path('delete/', views.delete_profile, name='delete-profile'),
+    path('details', views.details_profile, name='details-profile')
+]

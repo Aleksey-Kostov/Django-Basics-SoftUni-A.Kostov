@@ -2,6 +2,6 @@ from django.urls import path
 
 from recipes_app.common import views
 
-# urlpatterns = [
-#     path('add/', views.AlbumCreateView.as_view(), name='add-album'),
-# ]
+urlpatterns = [
+    path('', views.home_page, name='home'),
+]

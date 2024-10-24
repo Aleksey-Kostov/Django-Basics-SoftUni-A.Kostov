@@ -2,11 +2,12 @@ from django.urls import path, include
 
 from recipes_app.recipe import views
 
-# urlpatterns = [
-#     path('add/', views.AlbumCreateView.as_view(), name='add-album'),
-#     path('<int:id>/', include([
-#         path('edit/', views.AlbumEditView.as_view(), name='album-edit'),
-#         path('details/', views.AlbumDetailsView.as_view(), name='album-details'),
-#         path('delete/', views.AlbumDeleteView.as_view(), name='album-delete'),
-#     ]))
-# ]
+urlpatterns = [
+    path('catalogue/', views.catalogue, name='catalogue'),
+    path('catalogue/', views.catalogue, name='create-recipe'),
+    path('<int:pk>/', include([
+        path('edit/', views.edit_page, name='edit-page'),
+        path('details/', views.recipe_details, name='details-recipe'),
+        path('delete/', views.delete_recipe, name='delete-recipe'),
+    ]))
+]
