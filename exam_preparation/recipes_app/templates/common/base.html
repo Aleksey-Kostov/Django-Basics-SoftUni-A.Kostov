@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="{% static '/style/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'style/style.css' %}"/>
     <title>TastyRecipesApp</title>
 </head>
 
@@ -15,18 +15,21 @@
         <!-- Navigation Bar -->
         <h1><a class="index-navigation" href="{% url 'home' %}">Tasty Recipes</a></h1>
         <nav>
-            <!-- if the user has not created a profile -->
-            <a href="{% url 'create-profile' %}">Create Profile</a>
-
-            <!-- if the user has created a profile -->
-            <a href="{% url 'catalogue' %}">Catalogue</a>
-            <a href="{% url 'create-recipe' %}">Create Recipe</a>
-            <a href="{% url 'details-profile' %}}">Profile</a>
+            {% if not profile %}
+                <!-- if the user has not created a profile -->
+                <a href="{% url 'create-profile' %}">Create Profile</a>
+            {% else %}
+                <!-- if the user has created a profile -->
+                <a href="{% url 'catalogue' %}">Catalogue</a>
+                <a href="{% url 'create-recipe' %}">Create Recipe</a>
+                <a href="{% url 'details-profile' %}}">Profile</a>
+            {% endif %}
         </nav>
     </header>
-
-    {% block content %}
-    {% endblock %}
+    <section id="index-headline">
+        {% block content %}
+        {% endblock %}
+    </section>
 
     <!-- footer -->
     <footer>&copy;SoftUni Team 2024. All rights reserved.</footer>
