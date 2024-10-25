@@ -36,7 +36,10 @@ class RecipeBaseForm(forms.ModelForm):
             raise forms.ValidationError("Title must be at least 10 characters long!")
 
         # Validate unique title
-        if Recipe.objects.filter(title=title).exists():
+        current_recipe = getattr(self.instance, 'id', None)
+
+        # Validate unique title, excluding the current recipe
+        if Recipe.objects.filter(title=title).exclude(id=current_recipe).exists():
             raise forms.ValidationError("We already have a recipe with the same title!")
 
         return title

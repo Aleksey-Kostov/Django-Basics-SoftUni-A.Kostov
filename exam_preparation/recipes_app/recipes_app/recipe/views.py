@@ -38,23 +38,48 @@ def recipe_create(request):
     return render(request, 'recipe/create-recipe.html', context)
 
 
-def recipe_details(request, recipe_pk):
-    recipe = Recipe.objects.get(recipe_pk=recipe_pk)
+def recipe_details(request, pk):
+    recipe = Recipe.objects.get(pk=pk)
     profile = get_user_obj()
-    comment_form = CreateRecipeForm(instance=profile)
+    ingredients = recipe.ingredients.split(', ')
 
     context = {
         'recipe': recipe,
         'profile': profile,
-        'comment_form': comment_form
+        'ingredients': ingredients
     }
 
     return render(request, 'recipe/details-recipe.html', context)
 
 
-def edit_page(request, recipe_pk):
-    return render(request, 'recipe/edit-recipe.html')
+def edit_page(request, pk):
+    recipe = Recipe.objects.get(pk=pk)
+    form = CreateRecipeForm(request.POST or None, instance=recipe)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect(reverse_lazy('catalogue'))
+
+    context = {
+        'recipe': recipe,
+        'form': form,
+    }
+    return render(request, 'recipe/edit-recipe.html', context)
 
 
-def delete_recipe(request, recipe_pk):
-    return render(request, 'recipe/delete-recipe.html')
+def delete_recipe(request, pk):
+    recipe = Recipe.objects.get(pk=pk)
+    profile = get_user_obj()
+
+    if request.method == 'POST':
+        recipe.delete()
+
+        return redirect(reverse_lazy('catalogue'))
+
+    context = {
+        'recipe': recipe,
+        'profile': profile
+    }
+
+    return render(request, 'recipe/delete-recipe.html', context)

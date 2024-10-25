@@ -30,7 +30,7 @@
                     <!-- Recipe cooking time -->
                     <h4>Cooking Time: {{ recipe.cooking_time }} minutes</h4>
                     <!-- Recipe instructions -->
-                    <p>Instructions: {{ recipe.instructions }}</p>
+                    <p>{{ recipe.instructions|slice:":35" }}{% if recipe.instructions|length > 35 %}...{% endif %}</p>
                     <div class="details-buttons">
                         <!-- Recipe details button -->
                         <a href="{% url 'details-recipe' recipe.pk %}" class="details-btn">Details</a>
