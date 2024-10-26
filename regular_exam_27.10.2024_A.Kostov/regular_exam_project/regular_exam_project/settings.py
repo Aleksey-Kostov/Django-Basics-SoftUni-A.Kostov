@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'regular_exam_project.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "retake_exam_django",
+        "NAME": "exam_october_2024",
         "USER": "postgres-user",
         "PASSWORD": "password",
         "HOST": "127.0.0.1",
