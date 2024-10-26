@@ -86,7 +86,7 @@ DATABASES = {
         "NAME": "retake_exam_django",
         "USER": "postgres-user",
         "PASSWORD": "password",
-        "HOST": "localhost",
+        "HOST": "127.0.0.1",
         "PORT": "5432",
     }
 }
