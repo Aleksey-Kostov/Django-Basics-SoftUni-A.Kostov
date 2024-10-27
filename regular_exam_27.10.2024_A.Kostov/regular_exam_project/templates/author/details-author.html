@@ -2,62 +2,64 @@
 {% load static %}
 
 {% block content %}
-        <!-- Author's Profile Details Section -->
+    <!-- Author's Profile Details Section -->
 
-        <section id="details">
-          <div id="details-wrapper">
+    <section id="details">
+        <div id="details-wrapper">
             <h2>Author's Profile Details</h2>
-
-            <!-- if the author has provided a profile image link -->
-
-            <img
-              id="details-img"
-              src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295395_1280.png"
-              alt="profile img"
-            />
-
-            <!-- if the author has NO profile image link -->
-            <img
-              id="details-img"
-              src="/images/default.png"
-              alt="profile img"
-            />
-
+            {% if author.image_url %}
+                <!-- If the author has provided a profile image link -->
+                <img
+                        id="details-img"
+                        src="{{ author.image_url }}"
+                        alt="{{ author.first_name }}'s profile image"
+                />
+            {% else %}
+                <!-- If the author has NO profile image link -->
+                <img
+                        id="details-img"
+                        src="{% static 'images/default.png' %}"
+                        alt="Default profile image"
+                />
+            {% endif %}
             <!-- author's full name -->
-            <p id="details-title">Test User</p>
+            <p id="details-title">{{ author }}</p>
 
             <!-- number of posts -->
-            <p id="nutrition">Published Posts: 3</p>
+            <p id="nutrition">Published Posts: {{ num_posts }}</p>
 
             <div id="info-wrapper">
-              <div id="details-description">
-                <!-- pets number -->
-                <p>Pets Number: 4</p>
+                <div id="details-description">
+                    <!-- pets number -->
+                    <p>Pets Number: {{ author.pets_number }}</p>
 
-                <!-- info if provided, otherwise skip the line -->
-                <p>Some funny info of me and all my pets</p>
+                    <!-- info if provided, otherwise skip the line -->
+                    {% if author.info %}
+                        <p>{{ author.info }}</p>
+                    {% endif %}
 
-                <!-- Latest activity -->
-                <p>-------------------------------</p>
-                <!-- latest activity if there are posts: display the title of the last updated post -->
-                <p>
-                  Last Updated Post:
-                  <strong>My cool fluffy rabbits</strong>
-                </p>
+                    <!-- Latest activity -->
+                    <p>-------------------------------</p>
+                    <!-- latest activity if there are posts: display the title of the last updated post -->
+                    <!-- latest activity if there are NO posts -->
+                    <p>
+                        Last Updated Post:
+                        <strong>
+                            {% if last_updated_post %}
+                                {{ last_updated_post.title }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </strong>
+                    </p>
+                </div>
 
-                <!-- latest activity if there are NO posts -->
-                <p>
-                  Last Updated Post:
-                  <strong>N/A</strong>
-                </p>
-              </div>
-
-              <!--Edit and Delete buttons -->
-              <div id="action-buttons">
-                <a href="#" id="edit-btn">Edit</a>
-                <a href="#" id="delete-btn">Delete</a>
-              </div>
+                <!--Edit and Delete buttons -->
+                <div id="action-buttons">
+                    <a href="{% url 'edit-author' %}" id="edit-btn">Edit</a>
+                    <a href="{% url 'delete-author' %}" id="delete-btn">Delete</a>
+                </div>
             </div>
-          </div>
-        </section>
+        </div>
+    </section>
 {% endblock %}

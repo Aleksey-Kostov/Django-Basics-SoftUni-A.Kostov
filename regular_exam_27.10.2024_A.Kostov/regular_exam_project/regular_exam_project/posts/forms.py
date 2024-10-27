@@ -2,15 +2,17 @@ from django import forms
 from .models import Post
 from django.core.exceptions import ValidationError
 
+from django import forms
+from django.core.exceptions import ValidationError
+from .models import Post
 
-class PostCreationForm(forms.ModelForm):
+
+class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'image_url', 'content']
-
         widgets = {
             'title': forms.TextInput(attrs={'placeholder': 'Put an attractive and unique title...'}),
-            'image_url': forms.URLInput(attrs={'placeholder': 'Share your funniest furry photo URL!'}),
             'content': forms.Textarea(
                 attrs={'placeholder': 'Share some interesting facts about your adorable pets...'}),
         }
@@ -25,10 +27,32 @@ class PostCreationForm(forms.ModelForm):
 
     def clean_title(self):
         title = self.cleaned_data.get('title')
-        current_post = self.instance
-        if Post.objects.filter(title=title).exclude(pk=current_post.pk).exists():
-            raise ValidationError("Oops! That title is already taken. How about something fresh and fun!")
         if not (5 <= len(title) <= 50):
             raise ValidationError("Title must be between 5 and 50 characters!")
 
+        if Post.objects.filter(title=title).exclude(pk=self.instance.pk).exists():
+            raise ValidationError("Oops! That title is already taken. How about something fresh and fun!")
+
         return title
+
+
+class PostCreationForm(PostForm):
+    pass
+
+
+class PostEditForm(PostForm):
+    class Meta(PostForm.Meta):
+        help_texts = {}
+
+    pass
+
+
+class PostDeleteForm(PostForm):
+    class Meta(PostForm.Meta):
+        widgets = {
+            'title': forms.TextInput(attrs={'disabled': 'disabled'}),
+            'image_url': forms.TextInput(attrs={'disabled': 'disabled'}),
+            'content': forms.Textarea(attrs={'disabled': 'disabled'}),
+        }
+
+        help_texts = {}

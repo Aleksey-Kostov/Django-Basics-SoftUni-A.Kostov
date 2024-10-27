@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
-from regular_exam_project.posts.forms import PostCreationForm
+from regular_exam_project.posts.forms import PostCreationForm, PostEditForm, PostDeleteForm
 from regular_exam_project.posts.models import Post
 from utils import get_user_obj
 
@@ -42,7 +42,7 @@ def post_details(request, pk):
 
 def post_edit(request, pk):
     post = Post.objects.get(pk=pk)
-    form = PostCreationForm(request.POST or None, instance=post)
+    form = PostEditForm(request.POST or None, instance=post)
     author = get_user_obj()
 
     if request.method == 'POST':
@@ -61,15 +61,16 @@ def post_edit(request, pk):
 def post_delete(request, pk):
     post = Post.objects.get(pk=pk)
     author = get_user_obj()
+    form = PostDeleteForm(instance=post)
 
     if request.method == 'POST':
         post.delete()
-
         return redirect(reverse_lazy('dashboard'))
 
     context = {
         'post': post,
-        'author': author
+        'author': author,
+        'form': form
     }
 
     return render(request, 'posts/delete-post.html', context)

@@ -36,3 +36,35 @@ class AuthorCreationForm(forms.ModelForm):
         if pets_number < 0:
             raise ValidationError("Number of pets cannot be negative!")
         return pets_number
+
+
+class AuthorEditForm(forms.ModelForm):
+    class Meta:
+        model = Author
+        fields = ['first_name', 'last_name', 'pets_number', 'info', 'image_url']
+
+        labels = {
+            'first_name': 'First Name:',
+            'last_name': 'Last Name:',
+            'pets_number': 'Pets Number:',
+            'info': 'Info:',
+            'image_url': 'Profile Image URL:'
+        }
+
+    def clean_first_name(self):
+        first_name = self.cleaned_data.get('first_name')
+        if not first_name.isalpha():
+            raise forms.ValidationError("Your name must contain letters only!")
+        return first_name
+
+    def clean_last_name(self):
+        last_name = self.cleaned_data.get('last_name')
+        if not last_name.isalpha():
+            raise forms.ValidationError("Your name must contain letters only!")
+        return last_name
+
+    def clean_pets_number(self):
+        pets_number = self.cleaned_data.get('pets_number')
+        if pets_number < 0:
+            raise forms.ValidationError("Pets number must be a positive integer!")
+        return pets_number
