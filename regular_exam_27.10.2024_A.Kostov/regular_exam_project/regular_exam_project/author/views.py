@@ -1,23 +1,27 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+
+from regular_exam_project.author.forms import AuthorCreationForm
+from utils import get_user_obj
 
 
 def create_author(request):
-    # if request.method == 'POST':
-    #     form = CreateProfileForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect(reverse_lazy('catalogue'))
-    #
-    # else:
-    #     form = CreateProfileForm()
-    #
-    # profile = get_user_obj()
-    #
-    # context = {
-    #     'form': form,
-    #     'profile': profile
-    # }
-    return render(request, 'author/create-author.html')
+    if request.method == 'POST':
+        form = AuthorCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse_lazy('dashboard'))
+
+    else:
+        form = AuthorCreationForm()
+
+    author = get_user_obj()
+
+    context = {
+        'form': form,
+        'author': author
+    }
+    return render(request, 'author/create-author.html', context)
 
 
 def details_author(request):

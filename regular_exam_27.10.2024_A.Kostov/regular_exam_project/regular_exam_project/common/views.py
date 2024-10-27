@@ -1,22 +1,25 @@
 from django.shortcuts import render
 
+from regular_exam_project.posts.models import Post
+from utils import get_user_obj
+
 
 def home_page(request):
-    # profile = get_user_obj()
-    #
-    # context = {
-    #     'profile': profile
-    # }
+    author = get_user_obj()
 
-    return render(request, 'common/index.html')
+    context = {
+        'author': author
+    }
+
+    return render(request, 'common/index.html', context)
 
 
 def dashboard(request):
-    # recipes = Recipe.objects.all()
-    # profile = get_user_obj()
-    #
-    # context = {
-    #     'recipes': recipes,
-    #     'profile': profile
-    # }
-    return render(request, 'common/dashboard.html')
+    posts = Post.objects.all()
+    author = get_user_obj()
+
+    context = {
+        'posts': posts,
+        'author': author
+    }
+    return render(request, 'common/dashboard.html', context)

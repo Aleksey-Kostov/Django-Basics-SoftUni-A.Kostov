@@ -1,70 +1,75 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+
+from regular_exam_project.posts.forms import PostCreationForm
+from regular_exam_project.posts.models import Post
+from utils import get_user_obj
 
 
 def post_create(request):
-    # profile = get_user_obj()
-    #
-    # if request.method == 'POST':
-    #     form = CreateRecipeForm(request.POST)
-    #
-    #     if form.is_valid():
-    #         recipe = form.save(commit=False)
-    #         recipe.author = profile
-    #         recipe.save()
-    #         return redirect(reverse_lazy('catalogue'))
-    #
-    # else:
-    #     form = CreateRecipeForm()
-    #
-    # context = {
-    #     'form': form,
-    #     'profile': profile
-    # }
-    return render(request, 'posts/create-post.html')
+    author = get_user_obj()
+
+    if request.method == 'POST':
+        form = PostCreationForm(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = author
+            post.save()
+            return redirect(reverse_lazy('dashboard'))
+
+    else:
+        form = PostCreationForm()
+
+    context = {
+        'form': form,
+        'author': author
+    }
+    return render(request, 'posts/create-post.html', context)
 
 
 def post_details(request, pk):
-    # recipe = Recipe.objects.get(pk=pk)
-    # profile = get_user_obj()
-    # ingredients = recipe.ingredients.split(', ')
-    #
-    # context = {
-    #     'recipe': recipe,
-    #     'profile': profile,
-    #     'ingredients': ingredients
-    # }
+    post = Post.objects.get(pk=pk)
+    author = get_user_obj()
 
-    return render(request, 'posts/details-post.html')
+    context = {
+        'post': post,
+        'author': author,
+    }
+
+    return render(request, 'posts/details-post.html', context)
 
 
 def post_edit(request, pk):
-    # recipe = Recipe.objects.get(pk=pk)
-    # form = CreateRecipeForm(request.POST or None, instance=recipe)
-    #
-    # if request.method == 'POST':
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect(reverse_lazy('catalogue'))
-    #
-    # context = {
-    #     'recipe': recipe,
-    #     'form': form,
-    # }
-    return render(request, 'posts/edit-post.html')
+    post = Post.objects.get(pk=pk)
+    form = PostCreationForm(request.POST or None, instance=post)
+    author = get_user_obj()
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect(reverse_lazy('dashboard'))
+
+    context = {
+        'post': post,
+        'form': form,
+        'author': author,
+    }
+    return render(request, 'posts/edit-post.html', context)
 
 
 def post_delete(request, pk):
-    # recipe = Recipe.objects.get(pk=pk)
-    # profile = get_user_obj()
-    #
-    # if request.method == 'POST':
-    #     recipe.delete()
-    #
-    #     return redirect(reverse_lazy('catalogue'))
-    #
-    # context = {
-    #     'recipe': recipe,
-    #     'profile': profile
-    # }
+    post = Post.objects.get(pk=pk)
+    author = get_user_obj()
 
-    return render(request, 'posts/delete-post.html')
+    if request.method == 'POST':
+        post.delete()
+
+        return redirect(reverse_lazy('dashboard'))
+
+    context = {
+        'post': post,
+        'author': author
+    }
+
+    return render(request, 'posts/delete-post.html', context)
