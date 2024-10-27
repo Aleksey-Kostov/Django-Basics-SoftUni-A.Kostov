@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from .models import Author
 
 
-class AuthorForm(forms.ModelForm):
+class AuthorBaseForm(forms.ModelForm):
     class Meta:
         model = Author
         fields = ['first_name', 'last_name', 'passcode', 'pets_number']
@@ -41,12 +41,12 @@ class AuthorForm(forms.ModelForm):
         return name
 
 
-class AuthorCreationForm(AuthorForm):
+class AuthorCreationForm(AuthorBaseForm):
     pass
 
 
-class AuthorEditForm(AuthorForm):
-    class Meta(AuthorForm.Meta):
+class AuthorEditForm(AuthorBaseForm):
+    class Meta(AuthorBaseForm.Meta):
         fields = ['first_name', 'last_name', 'pets_number', 'info', 'image_url']
 
         labels = {
