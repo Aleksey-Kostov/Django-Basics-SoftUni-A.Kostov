@@ -1,14 +1,12 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from .models import Author
 
-from regular_exam_project.author.models import Author
 
-
-class AuthorCreationForm(forms.ModelForm):
+class AuthorForm(forms.ModelForm):
     class Meta:
         model = Author
         fields = ['first_name', 'last_name', 'passcode', 'pets_number']
-
         widgets = {
             'first_name': forms.TextInput(attrs={'placeholder': 'Enter your first name...'}),
             'last_name': forms.TextInput(attrs={'placeholder': 'Enter your last name...'}),
@@ -27,7 +25,7 @@ class AuthorCreationForm(forms.ModelForm):
 
     def clean_passcode(self):
         passcode = self.cleaned_data.get('passcode')
-        if not passcode.isdigit() or len(passcode) != 6:
+        if not (passcode.isdigit() and len(passcode) == 6):
             raise ValidationError("Your passcode must be exactly 6 digits!")
         return passcode
 
@@ -37,34 +35,27 @@ class AuthorCreationForm(forms.ModelForm):
             raise ValidationError("Number of pets cannot be negative!")
         return pets_number
 
+    def clean_name(self, name):
+        if not name.isalpha():
+            raise ValidationError("Your name must contain letters only!")
+        return name
 
-class AuthorEditForm(forms.ModelForm):
-    class Meta:
-        model = Author
+
+class AuthorCreationForm(AuthorForm):
+    pass
+
+
+class AuthorEditForm(AuthorForm):
+    class Meta(AuthorForm.Meta):
         fields = ['first_name', 'last_name', 'pets_number', 'info', 'image_url']
 
         labels = {
-            'first_name': 'First Name:',
-            'last_name': 'Last Name:',
-            'pets_number': 'Pets Number:',
             'info': 'Info:',
-            'image_url': 'Profile Image URL:'
+            'image_url': 'Profile Image URL:',
         }
 
     def clean_first_name(self):
-        first_name = self.cleaned_data.get('first_name')
-        if not first_name.isalpha():
-            raise forms.ValidationError("Your name must contain letters only!")
-        return first_name
+        return self.clean_name(self.cleaned_data.get('first_name'))
 
     def clean_last_name(self):
-        last_name = self.cleaned_data.get('last_name')
-        if not last_name.isalpha():
-            raise forms.ValidationError("Your name must contain letters only!")
-        return last_name
-
-    def clean_pets_number(self):
-        pets_number = self.cleaned_data.get('pets_number')
-        if pets_number < 0:
-            raise forms.ValidationError("Pets number must be a positive integer!")
-        return pets_number
+        return self.clean_name(self.cleaned_data.get('last_name'))

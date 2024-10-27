@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from .models import Post
 
 
-class PostForm(forms.ModelForm):
+class PostBaseForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'image_url', 'content']
@@ -36,19 +36,19 @@ class PostForm(forms.ModelForm):
         return title
 
 
-class PostCreationForm(PostForm):
+class PostCreationForm(PostBaseForm):
     pass
 
 
-class PostEditForm(PostForm):
-    class Meta(PostForm.Meta):
+class PostEditForm(PostBaseForm):
+    class Meta(PostBaseForm.Meta):
         help_texts = {}
 
     pass
 
 
-class PostDeleteForm(PostForm):
-    class Meta(PostForm.Meta):
+class PostDeleteForm(PostBaseForm):
+    class Meta(PostBaseForm.Meta):
         widgets = {
             'title': forms.TextInput(attrs={'disabled': 'disabled'}),
             'image_url': forms.TextInput(attrs={'disabled': 'disabled'}),
