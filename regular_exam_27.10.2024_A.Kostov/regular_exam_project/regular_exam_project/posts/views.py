@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.views.generic import DetailView
 
 from regular_exam_project.posts.forms import PostCreationForm, PostEditForm, PostDeleteForm
 from regular_exam_project.posts.models import Post
@@ -28,16 +29,27 @@ def post_create(request):
     return render(request, 'posts/create-post.html', context)
 
 
-def post_details(request, pk):
-    post = Post.objects.get(pk=pk)
-    author = get_user_obj()
+# def post_details(request, pk):
+#     post = Post.objects.get(pk=pk)
+#     author = get_user_obj()
+#
+#     context = {
+#         'post': post,
+#         'author': author,
+#     }
+#
+#     return render(request, 'posts/details-post.html', context)
 
-    context = {
-        'post': post,
-        'author': author,
-    }
 
-    return render(request, 'posts/details-post.html', context)
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'posts/details-post.html'
+    context_object_name = 'post'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['author'] = get_user_obj()
+        return context
 
 
 def post_edit(request, pk):
