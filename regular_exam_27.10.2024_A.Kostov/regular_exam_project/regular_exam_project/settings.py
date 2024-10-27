@@ -30,11 +30,11 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-# MY_APP = [
-#     'recipes_app.recipe',
-#     'recipes_app.common',
-#     'recipes_app.profile_recipes',
-# ]
+MY_APP = [
+    'regular_exam_project.author',
+    'regular_exam_project.common',
+    'regular_exam_project.posts',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+] + MY_APP
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
