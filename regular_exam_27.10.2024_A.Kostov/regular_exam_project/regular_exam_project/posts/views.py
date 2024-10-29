@@ -41,6 +41,7 @@ def post_create(request):
 #     return render(request, 'posts/details-post.html', context)
 
 
+
 class PostDetailView(DetailView):
 
     model = Post
