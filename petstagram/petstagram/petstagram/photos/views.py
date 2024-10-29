@@ -44,7 +44,6 @@ class PhotoDetailsView(DetailView):
         return context
 
 
-
 # def photo_details_page(request, pk: int):
 #     photo = Photo.objects.get(pk=pk)
 #     likes = Like.objects.all()
