@@ -42,6 +42,7 @@ def post_create(request):
 
 
 
+
 class PostDetailView(DetailView):
 
     model = Post
