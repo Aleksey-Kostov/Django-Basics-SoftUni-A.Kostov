@@ -41,10 +41,7 @@ def post_create(request):
 #     return render(request, 'posts/details-post.html', context)
 
 
-
-
 class PostDetailView(DetailView):
-
     model = Post
     template_name = 'posts/details-post.html'
     context_object_name = 'post'
